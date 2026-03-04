@@ -1,0 +1,41 @@
+---
+title: "Project2"
+author: "Radzhana Rabdanova"
+format: html
+editor: visual
+---
+
+```{r setup, message=FALSE} 
+
+# 1. Исправленные ссылки (без лишних скобок)
+url_precip <- "https://raw.githubusercontent.com/radzhanarabdanova-dotcom/Project2/main/precip_raw.csv"
+url_fao <- "https://raw.githubusercontent.com/radzhanarabdanova-dotcom/Project2/main/Cost_Affordability_Healthy_Diet_(CoAHD)_E_All_Data_NOFLAG.csv"
+url_co2 <- "https://raw.githubusercontent.com/radzhanarabdanova-dotcom/Project2/main/CO2%20Emissions%20by%20Country%20(1990-2023).csv"
+
+# 2. Загрузка данных
+# Для осадков оставляем skip = 3, так как в начале файла есть технические строки
+precip_raw <- read.csv(url_precip, skip = 3, check.names = FALSE)
+fao_raw <- read.csv(url_fao, check.names = FALSE)
+co2_raw <- read.csv(url_co2, check.names = FALSE)
+
+# Проверка: если выведет первые строки, значит всё заработало!
+head(precip_raw)
+
+library(lubridate)
+
+precip_tidy <- precip_raw |>
+  # Убираем пустые столбцы, если они есть
+  select(City, Country, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec) |>
+  # Переводим в длинный формат
+  pivot_longer(cols = Jan:Dec, names_to = "Month", values_to = "Rainfall") |>
+  # ОЧИСТКА: превращаем даты обратно в числа (берем только "день" из даты)
+  mutate(Rainfall = as.character(Rainfall),
+         Rainfall = ifelse(grepl("-", Rainfall), 
+                           day(as.Date(Rainfall)), 
+                           as.numeric(Rainfall))) |>
+  mutate(Rainfall = as.numeric(Rainfall)) |>
+  drop_na(Rainfall)
+
+# Теперь данные готовы для графиков!
+print(head(precip_tidy))
+```
