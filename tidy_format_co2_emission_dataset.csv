@@ -37,7 +37,7 @@ Cayman Islands,2021,0.86
 Central African Republic,2021,0.28
 Chad,2021,2.21
 Chile,2021,85.7
-China,2021,"12,466.32"
+"China,2021,""12,466.32"""
 Colombia,2021,77.57
 Comoros,2021,0.28
 Cook Islands,2021,0.11
@@ -84,7 +84,7 @@ Honduras,2021,9.75
 Hong Kong,2021,33.21
 Hungary,2021,50.69
 Iceland,2021,2.91
-India,2021,"2,648.78"
+"India,2021,""2,648.78"""
 Indonesia,2021,602.59
 Iran,2021,710.83
 Iraq,2021,177.85
@@ -93,7 +93,7 @@ Israel,2021,59.59
 Italy,2021,319.67
 Ivory Coast,2021,14.54
 Jamaica,2021,8.08
-Japan,2021,"1,084.69"
+"Japan,2021,""1,084.69"""
 Jordan,2021,24.3
 Kazakhstan,2021,211.21
 Kenya,2021,22.43
@@ -147,9 +147,9 @@ Portugal,2021,38.68
 Qatar,2021,97.69
 Réunion,2021,2.58
 Romania,2021,78.75
-Russia,2021,"1,942.54"
+"Russia,2021,""1,942.54"""
 Rwanda,2021,1.24
-"Saint Helena, Ascension and Tristan da Cunha",2021,0.02
+Saint Helena, Ascension and Tristan da Cunha,2021,0.02
 Saint Kitts and Nevis,2021,0.29
 Saint Lucia,2021,0.71
 Saint Pierre and Miquelon,2021,0.09
@@ -189,7 +189,7 @@ Uganda,2021,6.82
 Ukraine,2021,185.46
 United Arab Emirates,2021,193.51
 United Kingdom,2021,335.36
-United States,2021,"4,752.08"
+"United States,2021,""4,752.08"""
 Uruguay,2021,6.79
 Uzbekistan,2021,125.65
 Vanuatu,2021,0.22
@@ -348,7 +348,7 @@ Réunion,1990,2.4
 Romania,1990,6.8
 Russia,1990,-
 Rwanda,1990,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1990,1.3
+Saint Helena, Ascension and Tristan da Cunha,1990,1.3
 Saint Kitts and Nevis,1990,1.6
 Saint Lucia,1990,1.2
 Saint Pierre and Miquelon,1990,14.6
@@ -547,7 +547,7 @@ Réunion,1991,2.8
 Romania,1991,5.9
 Russia,1991,-
 Rwanda,1991,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1991,1.3
+Saint Helena, Ascension and Tristan da Cunha,1991,1.3
 Saint Kitts and Nevis,1991,1.8
 Saint Lucia,1991,1.2
 Saint Pierre and Miquelon,1991,16.4
@@ -746,7 +746,7 @@ Réunion,1992,2.8
 Romania,1992,5.4
 Russia,1992,14
 Rwanda,1992,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1992,1.3
+Saint Helena, Ascension and Tristan da Cunha,1992,1.3
 Saint Kitts and Nevis,1992,1.8
 Saint Lucia,1992,1.4
 Saint Pierre and Miquelon,1992,15.1
@@ -945,7 +945,7 @@ Réunion,1993,2.7
 Romania,1993,5.3
 Russia,1993,12.8
 Rwanda,1993,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1993,1.3
+Saint Helena, Ascension and Tristan da Cunha,1993,1.3
 Saint Kitts and Nevis,1993,2
 Saint Lucia,1993,1.6
 Saint Pierre and Miquelon,1993,11.6
@@ -1144,7 +1144,7 @@ Réunion,1994,3
 Romania,1994,5.1
 Russia,1994,10.9
 Rwanda,1994,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1994,1.3
+Saint Helena, Ascension and Tristan da Cunha,1994,1.3
 Saint Kitts and Nevis,1994,2.1
 Saint Lucia,1994,1.8
 Saint Pierre and Miquelon,1994,11.1
@@ -1343,7 +1343,7 @@ Réunion,1995,3.2
 Romania,1995,5.7
 Russia,1995,10.5
 Rwanda,1995,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1995,2.1
+Saint Helena, Ascension and Tristan da Cunha,1995,2.1
 Saint Kitts and Nevis,1995,2.2
 Saint Lucia,1995,2.1
 Saint Pierre and Miquelon,1995,11.1
@@ -1542,7 +1542,7 @@ Réunion,1996,3.3
 Romania,1996,5.7
 Russia,1996,10.4
 Rwanda,1996,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1996,2.9
+Saint Helena, Ascension and Tristan da Cunha,1996,2.9
 Saint Kitts and Nevis,1996,2.4
 Saint Lucia,1996,2.2
 Saint Pierre and Miquelon,1996,11.1
@@ -1741,7 +1741,7 @@ Réunion,1997,3.4
 Romania,1997,5.2
 Russia,1997,10
 Rwanda,1997,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1997,2.9
+Saint Helena, Ascension and Tristan da Cunha,1997,2.9
 Saint Kitts and Nevis,1997,2.3
 Saint Lucia,1997,2.1
 Saint Pierre and Miquelon,1997,7.6
@@ -1940,7 +1940,7 @@ Réunion,1998,3.6
 Romania,1998,4.6
 Russia,1998,9.6
 Rwanda,1998,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1998,3.5
+Saint Helena, Ascension and Tristan da Cunha,1998,3.5
 Saint Kitts and Nevis,1998,2.3
 Saint Lucia,1998,2
 Saint Pierre and Miquelon,1998,8.7
@@ -2139,7 +2139,7 @@ Réunion,1999,3.3
 Romania,1999,3.9
 Russia,1999,9.7
 Rwanda,1999,0.1
-"Saint Helena, Ascension and Tristan da Cunha",1999,4.3
+Saint Helena, Ascension and Tristan da Cunha,1999,4.3
 Saint Kitts and Nevis,1999,2.3
 Saint Lucia,1999,2.1
 Saint Pierre and Miquelon,1999,8.7
@@ -2338,7 +2338,7 @@ Réunion,2000,3.4
 Romania,2000,4
 Russia,2000,9.8
 Rwanda,2000,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2000,2.2
+Saint Helena, Ascension and Tristan da Cunha,2000,2.2
 Saint Kitts and Nevis,2000,2.2
 Saint Lucia,2000,2.1
 Saint Pierre and Miquelon,2000,8.8
@@ -2537,7 +2537,7 @@ Réunion,2001,3.7
 Romania,2001,4.2
 Russia,2001,9.9
 Rwanda,2001,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2001,2.2
+Saint Helena, Ascension and Tristan da Cunha,2001,2.2
 Saint Kitts and Nevis,2001,3.9
 Saint Lucia,2001,2.3
 Saint Pierre and Miquelon,2001,8.8
@@ -2736,7 +2736,7 @@ Réunion,2002,3.6
 Romania,2002,4.1
 Russia,2002,9.9
 Rwanda,2002,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2002,2.2
+Saint Helena, Ascension and Tristan da Cunha,2002,2.2
 Saint Kitts and Nevis,2002,4.2
 Saint Lucia,2002,2
 Saint Pierre and Miquelon,2002,9.5
@@ -2935,7 +2935,7 @@ Réunion,2003,3.6
 Romania,2003,4.3
 Russia,2003,10.2
 Rwanda,2003,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2003,2.3
+Saint Helena, Ascension and Tristan da Cunha,2003,2.3
 Saint Kitts and Nevis,2003,4.6
 Saint Lucia,2003,2.2
 Saint Pierre and Miquelon,2003,10.6
@@ -3134,7 +3134,7 @@ Réunion,2004,3.6
 Romania,2004,4.3
 Russia,2004,10.4
 Rwanda,2004,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2004,2.3
+Saint Helena, Ascension and Tristan da Cunha,2004,2.3
 Saint Kitts and Nevis,2004,4.7
 Saint Lucia,2004,2.2
 Saint Pierre and Miquelon,2004,10
@@ -3333,7 +3333,7 @@ Réunion,2005,3.5
 Romania,2005,4.2
 Russia,2005,10.6
 Rwanda,2005,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2005,2.3
+Saint Helena, Ascension and Tristan da Cunha,2005,2.3
 Saint Kitts and Nevis,2005,4.8
 Saint Lucia,2005,2.2
 Saint Pierre and Miquelon,2005,10.7
@@ -3532,7 +3532,7 @@ Réunion,2006,3.5
 Romania,2006,4.6
 Russia,2006,11.7
 Rwanda,2006,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2006,2.4
+Saint Helena, Ascension and Tristan da Cunha,2006,2.4
 Saint Kitts and Nevis,2006,4.7
 Saint Lucia,2006,2.1
 Saint Pierre and Miquelon,2006,10.8
@@ -3731,7 +3731,7 @@ Réunion,2007,3.5
 Romania,2007,4.4
 Russia,2007,11.6
 Rwanda,2007,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2007,2.4
+Saint Helena, Ascension and Tristan da Cunha,2007,2.4
 Saint Kitts and Nevis,2007,4.9
 Saint Lucia,2007,2.3
 Saint Pierre and Miquelon,2007,10.8
@@ -3930,7 +3930,7 @@ Réunion,2008,-
 Romania,2008,4.7
 Russia,2008,12
 Rwanda,2008,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2008,-
+Saint Helena, Ascension and Tristan da Cunha,2008,-
 Saint Kitts and Nevis,2008,4.9
 Saint Lucia,2008,2.3
 Saint Pierre and Miquelon,2008,10.9
@@ -4129,7 +4129,7 @@ Réunion,2009,-
 Romania,2009,4
 Russia,2009,11
 Rwanda,2009,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2009,-
+Saint Helena, Ascension and Tristan da Cunha,2009,-
 Saint Kitts and Nevis,2009,5
 Saint Lucia,2009,2.2
 Saint Pierre and Miquelon,2009,10.9
@@ -4328,7 +4328,7 @@ Réunion,2010,-
 Romania,2010,3.9
 Russia,2010,12.2
 Rwanda,2010,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2010,-
+Saint Helena, Ascension and Tristan da Cunha,2010,-
 Saint Kitts and Nevis,2010,5
 Saint Lucia,2010,2.3
 Saint Pierre and Miquelon,2010,-
@@ -4527,7 +4527,7 @@ Réunion,2011,-
 Romania,2011,4.2
 Russia,2011,12.6
 Rwanda,2011,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2011,-
+Saint Helena, Ascension and Tristan da Cunha,2011,-
 Saint Kitts and Nevis,2011,5.1
 Saint Lucia,2011,2.3
 Saint Pierre and Miquelon,2011,-
@@ -4726,7 +4726,7 @@ Réunion,2012,-
 Romania,2012,4.1
 Russia,2012,12.8
 Rwanda,2012,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2012,-
+Saint Helena, Ascension and Tristan da Cunha,2012,-
 Saint Kitts and Nevis,2012,4.2
 Saint Lucia,2012,2.3
 Saint Pierre and Miquelon,2012,-
@@ -4925,7 +4925,7 @@ Réunion,2013,-
 Romania,2013,3.6
 Russia,2013,12.4
 Rwanda,2013,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2013,-
+Saint Helena, Ascension and Tristan da Cunha,2013,-
 Saint Kitts and Nevis,2013,4.2
 Saint Lucia,2013,2.3
 Saint Pierre and Miquelon,2013,-
@@ -5124,7 +5124,7 @@ Réunion,2014,-
 Romania,2014,3.5
 Russia,2014,11.9
 Rwanda,2014,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2014,-
+Saint Helena, Ascension and Tristan da Cunha,2014,-
 Saint Kitts and Nevis,2014,4.3
 Saint Lucia,2014,2.3
 Saint Pierre and Miquelon,2014,-
@@ -5323,7 +5323,7 @@ Réunion,2015,3.1
 Romania,2015,4
 Russia,2015,11.8
 Rwanda,2015,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2015,3.7
+Saint Helena, Ascension and Tristan da Cunha,2015,3.7
 Saint Kitts and Nevis,2015,4.4
 Saint Lucia,2015,2.1
 Saint Pierre and Miquelon,2015,12
@@ -5522,7 +5522,7 @@ Réunion,2018,3.4
 Romania,2018,4.1
 Russia,2018,12.1
 Rwanda,2018,0.1
-"Saint Helena, Ascension and Tristan da Cunha",2018,4.4
+Saint Helena, Ascension and Tristan da Cunha,2018,4.4
 Saint Kitts and Nevis,2018,4.4
 Saint Lucia,2018,2.1
 Saint Pierre and Miquelon,2018,12.5
