@@ -1,41 +1,96 @@
 ---
 title: "Project2"
 author: "Radzhana Rabdanova"
-format: html
-editor: visual
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: flatly
+execute:
+  echo: true
+  warning: false
 ---
 
 ```{r setup, message=FALSE} 
 
-# 1. Исправленные ссылки (без лишних скобок)
-url_precip <- "https://raw.githubusercontent.com/radzhanarabdanova-dotcom/Project2/main/precip_raw.csv"
-url_fao <- "https://raw.githubusercontent.com/radzhanarabdanova-dotcom/Project2/main/Cost_Affordability_Healthy_Diet_(CoAHD)_E_All_Data_NOFLAG.csv"
-url_co2 <- "https://raw.githubusercontent.com/radzhanarabdanova-dotcom/Project2/main/CO2%20Emissions%20by%20Country%20(1990-2023).csv"
+library(tidyverse)
+library(ggplot2)
 
-# 2. Загрузка данных
-# Для осадков оставляем skip = 3, так как в начале файла есть технические строки
-precip_raw <- read.csv(url_precip, skip = 3, check.names = FALSE)
-fao_raw <- read.csv(url_fao, check.names = FALSE)
-co2_raw <- read.csv(url_co2, check.names = FALSE)
+# --- 1. FAO Healthy Diet Dataset ---
 
-# Проверка: если выведет первые строки, значит всё заработало!
-head(precip_raw)
+# Data Source- This dataset is provided by the Food and Agriculture Organization (FAO). It tracks the cost of a healthy diet across different countries and regions from 2017 to 2024. Structure Before Tidying. The raw data is in a "wide" format where each year (Y2017, Y2018, etc.) is a separate column.
 
-library(lubridate)
+# Use relative paths - put files in the same folder as this .qmd
+fao_raw <- read.csv("fao_diet_raw.csv", check.names = FALSE)
 
-precip_tidy <- precip_raw |>
-  # Убираем пустые столбцы, если они есть
-  select(City, Country, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec) |>
-  # Переводим в длинный формат
-  pivot_longer(cols = Jan:Dec, names_to = "Month", values_to = "Rainfall") |>
-  # ОЧИСТКА: превращаем даты обратно в числа (берем только "день" из даты)
-  mutate(Rainfall = as.character(Rainfall),
-         Rainfall = ifelse(grepl("-", Rainfall), 
-                           day(as.Date(Rainfall)), 
-                           as.numeric(Rainfall))) |>
-  mutate(Rainfall = as.numeric(Rainfall)) |>
-  drop_na(Rainfall)
+fao_tidy <- fao_raw %>%
+  select(Area, Item, starts_with("Y20")) %>%
+  pivot_longer(cols = starts_with("Y20"), names_to = "Year", values_to = "Cost") %>%
+  mutate(
+    Year = as.numeric(gsub("Y", "", Year)),
+    Cost = as.numeric(as.character(Cost))
+  ) %>%
+  drop_na(Cost)
 
-# Теперь данные готовы для графиков!
-print(head(precip_tidy))
+head(fao_tidy)
+
+#Interpretation: The data shows a steady increase in the cost of a healthy diet globally, particularly accelerating after 2020.
+
+#2. Dataset: Gym Members Exercise Tracking.Data Source- Sourced from Kaggle's Gym Members dataset, tracking physical metrics and workout types. Structure Before Tidying.The data contains separate columns for different heart rate metrics (Max, Avg, Resting).
+
+gym_raw <- read.csv("gym_members_exercise_tracking.csv")
+head(gym_raw)
+
+#Transformation Steps. To compare BPM types across workout categories, we pivot the three BPM columns into a long format.
+
+gym_tidy <- gym_raw %>%
+  select(Workout_Type, Max_BPM, Avg_BPM, Resting_BPM) %>%
+  pivot_longer(cols = ends_with("BPM"), 
+               names_to = "BPM_Type", 
+               values_to = "BPM_Value")
+
+#Analysis & Results
+
+ggplot(gym_tidy, aes(x = Workout_Type, y = BPM_Value, fill = BPM_Type)) +
+  geom_boxplot() +
+  labs(title = "Heart Rate Distribution by Workout Type", 
+       y = "Beats Per Minute", x = "Workout Category") +
+  theme_minimal()
+
+#Interpretation: HIIT and Cardio workouts consistently show higher Average and Max BPM values compared to Yoga, which aligns with the intensity levels of these activities.
+
+#3. Dataset: Global CO2 Emissions. Data Source- This dataset tracks CO2 emission rates (metric tons) per country and year. Structure Before Tidying. Data was initially provided in a format where emission rates were stored as characters, which prevents mathematical operations.
+
+co2_raw <- read.csv("tidy_format_co2_emission_dataset.csv")
+str(co2_raw)
+
+#Transformation Steps. We clean the data by ensuring numeric types and filtering out incomplete records.
+
+co2_clean <- co2_raw %>%
+  mutate(
+    Year = as.numeric(as.character(Year)),
+    Emissions = as.numeric(as.character(CO2EmissionRate..mt.))
+  ) %>%
+  filter(!is.na(Emissions))
+
+#Analysis & Results. Summary of total global emissions per year.
+
+co2_summary <- co2_clean %>%
+  group_by(Year) %>%
+  summarize(Total_Emissions = sum(Emissions, na.rm = TRUE))
+
+knitr::kable(co2_summary)
+
+ggplot(co2_summary, aes(x = Year, y = Total_Emissions)) +
+  geom_col(fill = "darkred") +
+  labs(title = "Total Global CO2 Emissions by Year", 
+       y = "Total mt CO2", x = "Year") +
+  theme_minimal()
+#Interpretation: The bar chart illustrates the total global CO2 output. Note any significant drops or spikes which could correlate with global economic shifts or environmental policies.
+
+#Conclusion. By applying tidying principles—specifically moving from wide to long formats—we were able to create reproducible visualizations and summary tables. This workflow ensures that raw, messy data is transformed into a structured format ready for statistical insight.
+
+
+
 ```
