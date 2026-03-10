@@ -1,0 +1,260 @@
+---
+title: "Project 2 — Data Tidying and Transformation"
+author: "Radzhana Rabdanova"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: false
+    theme: flatly
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r load-libraries}
+# Load required libraries
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+```
+
+---
+
+# Dataset 1: FAO Healthy Diet Cost
+
+## Data Source
+
+This dataset is provided by the **Food and Agriculture Organization (FAO)**. It tracks the cost of a healthy diet across different countries and regions from 2017 to 2024.
+
+## Data Structure Before Tidying
+
+The raw data is in a **wide format** where each year (Y2017, Y2018, etc.) is a separate column. This makes it difficult to analyze trends over time.
+
+```{r fao-load}
+# Import raw FAO data
+fao_raw <- read.csv("fao_diet_raw.csv", check.names = FALSE)
+
+# Show dimensions and column names
+cat("Dimensions:", nrow(fao_raw), "rows x", ncol(fao_raw), "columns\n")
+cat("Column names:\n")
+print(names(fao_raw))
+```
+
+```{r fao-preview}
+# Preview raw wide-format data
+head(fao_raw[, 1:6])
+```
+
+## Transformation Steps
+
+We use `pivot_longer()` to convert year columns (Y2017–Y2024) into two columns: `Year` and `Cost`. This transforms the data from wide to tidy (long) format.
+
+```{r fao-tidy}
+# Reshape from wide to tidy (long) format
+fao_tidy <- fao_raw %>%
+  select(Area, Item, starts_with("Y20")) %>%        # Keep ID cols + year cols
+  pivot_longer(
+    cols      = starts_with("Y20"),                  # Pivot all year columns
+    names_to  = "Year",                              # New column: year label
+    values_to = "Cost"                               # New column: cost value
+  ) %>%
+  mutate(
+    Year = as.numeric(gsub("Y", "", Year)),          # Remove "Y" prefix → numeric
+    Cost = as.numeric(as.character(Cost))            # Ensure Cost is numeric
+  ) %>%
+  drop_na(Cost)                                      # Remove rows with missing Cost
+
+# Preview tidy data
+head(fao_tidy)
+```
+
+```{r fao-summary}
+# Summary: average cost by year
+fao_summary <- fao_tidy %>%
+  group_by(Year) %>%
+  summarize(
+    Avg_Cost = round(mean(Cost, na.rm = TRUE), 2),
+    .groups  = "drop"
+  )
+
+kable(fao_summary, col.names = c("Year", "Average Diet Cost (USD/day)"),
+      caption = "Average Global Cost of a Healthy Diet by Year")
+```
+
+## Analysis & Visualization
+
+```{r fao-plot}
+ggplot(fao_summary, aes(x = Year, y = Avg_Cost)) +
+  geom_line(color = "steelblue", linewidth = 1.2) +
+  geom_point(color = "steelblue", size = 3) +
+  labs(
+    title   = "Average Global Cost of a Healthy Diet (2017–2024)",
+    x       = "Year",
+    y       = "Average Cost (USD per day)"
+  ) +
+  theme_minimal()
+```
+
+## Conclusion
+
+The data shows a **steady increase** in the cost of a healthy diet globally, particularly accelerating after 2020. This trend likely reflects global inflationary pressures and supply chain disruptions following the COVID-19 pandemic.
+
+---
+
+# Dataset 2: Gym Members Exercise Tracking
+
+## Data Source
+
+Sourced from **Kaggle's Gym Members Exercise Tracking** dataset. It tracks physical metrics and workout types for gym members, including heart rate measurements across different training styles.
+
+## Data Structure Before Tidying
+
+The data contains **separate columns** for three heart rate metrics: `Max_BPM`, `Avg_BPM`, and `Resting_BPM`. To compare these across workout types, they need to be in a single column.
+
+```{r gym-load}
+# Import raw gym data
+gym_raw <- read.csv("gym_members_exercise_tracking.csv")
+
+# Show dimensions
+cat("Dimensions:", nrow(gym_raw), "rows x", ncol(gym_raw), "columns\n")
+
+# Preview raw data
+head(gym_raw)
+```
+
+## Transformation Steps
+
+We use `pivot_longer()` to collapse the three BPM columns into two new columns: `BPM_Type` (category) and `BPM_Value` (measurement).
+
+```{r gym-tidy}
+# Select relevant columns and reshape to long format
+gym_tidy <- gym_raw %>%
+  select(Workout_Type, Max_BPM, Avg_BPM, Resting_BPM) %>%   # Keep only needed cols
+  pivot_longer(
+    cols      = ends_with("BPM"),                             # Pivot all BPM columns
+    names_to  = "BPM_Type",                                   # New column: BPM category
+    values_to = "BPM_Value"                                   # New column: numeric value
+  )
+
+# Preview tidy data
+head(gym_tidy, 12)
+```
+
+```{r gym-summary}
+# Summary table: average BPM by workout type and BPM type
+gym_summary <- gym_tidy %>%
+  group_by(Workout_Type, BPM_Type) %>%
+  summarize(
+    Mean_BPM = round(mean(BPM_Value, na.rm = TRUE), 1),
+    .groups  = "drop"
+  )
+
+kable(gym_summary, col.names = c("Workout Type", "BPM Type", "Mean BPM"),
+      caption = "Average Heart Rate by Workout Type and BPM Category")
+```
+
+## Analysis & Visualization
+
+```{r gym-plot}
+ggplot(gym_tidy, aes(x = Workout_Type, y = BPM_Value, fill = BPM_Type)) +
+  geom_boxplot() +
+  labs(
+    title  = "Heart Rate Distribution by Workout Type",
+    x      = "Workout Category",
+    y      = "Beats Per Minute",
+    fill   = "BPM Type"
+  ) +
+  theme_minimal()
+```
+
+## Conclusion
+
+HIIT and Cardio workouts consistently show **higher Average and Maximum BPM** values compared to Yoga and Strength training, which aligns with their higher intensity levels. Resting BPM remains stable across all workout types, reflecting baseline fitness rather than workout intensity.
+
+---
+
+# Dataset 3: Global CO2 Emissions
+
+## Data Source
+
+This dataset tracks **CO2 emission rates** (metric tons) per country and year, covering the period from 1990 to 2021.
+
+## Data Structure Before Tidying
+
+The raw data stores emission values as **character strings** rather than numbers, which prevents any mathematical operations. Additionally, year values contain mixed types that require cleaning.
+
+```{r co2-load}
+# Import raw CO2 data
+co2_raw <- read.csv("tidy_format_co2_emission_dataset.csv")
+
+# Show structure
+str(co2_raw)
+
+# Preview raw data
+head(co2_raw)
+```
+
+## Transformation Steps
+
+We convert character columns to numeric types and filter out incomplete records.
+
+```{r co2-tidy}
+# Clean and type-convert the CO2 dataset
+co2_clean <- co2_raw %>%
+  rename(country   = Country,                              # Consistent lowercase names
+         year      = Year,
+         emissions = CO2EmissionRate..mt.) %>%
+  mutate(
+    year      = as.numeric(as.character(year)),            # Convert year to numeric
+    emissions = as.numeric(as.character(emissions))        # Convert emissions to numeric
+  ) %>%
+  filter(!is.na(emissions), !is.na(year))                  # Remove incomplete rows
+
+# Preview clean data
+head(co2_clean)
+cat("Rows after cleaning:", nrow(co2_clean), "\n")
+```
+
+```{r co2-summary}
+# Summarize total global emissions per year
+co2_summary <- co2_clean %>%
+  group_by(year) %>%
+  summarize(
+    Total_Emissions = round(sum(emissions, na.rm = TRUE), 2),
+    .groups = "drop"
+  )
+
+kable(co2_summary, col.names = c("Year", "Total Emissions (mt CO2)"),
+      caption = "Total Global CO2 Emissions by Year")
+```
+
+## Analysis & Visualization
+
+```{r co2-plot}
+ggplot(co2_summary, aes(x = year, y = Total_Emissions)) +
+  geom_col(fill = "darkred") +
+  labs(
+    title = "Total Global CO2 Emissions by Year",
+    x     = "Year",
+    y     = "Total mt CO2"
+  ) +
+  theme_minimal()
+```
+
+## Conclusion
+
+Global CO2 emissions remained **relatively stable** between approximately 900–1,050 metric tons throughout the 1990s and 2000s. A noticeable dip around **2009** corresponds to reduced industrial activity during the global financial crisis. The sharp spike in 2021 likely reflects expanded country coverage in that year's data collection rather than a literal emissions explosion — an important data quality consideration.
+
+---
+
+# Overall Conclusions
+
+By applying tidy data principles — specifically reshaping wide-format datasets into long format using `pivot_longer()` — we created reproducible, analysis-ready datasets across three distinct domains:
+
+- **FAO Diet Data**: revealed rising global food costs post-2020
+- **Gym Exercise Data**: confirmed heart rate patterns align with workout intensity
+- **CO2 Emissions Data**: illustrated long-term emissions trends with a data quality observation for 2021
+
+This workflow demonstrates that clean, tidy data is not just aesthetically preferable — it **unlocks the analysis**.
